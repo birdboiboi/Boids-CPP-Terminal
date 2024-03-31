@@ -86,10 +86,10 @@ void loop(){
         zList[i] = boids[i].Locate()[2]; 
 	    std::cout<< xList[i]<<","<<yList[i]<<","<<zList[i];
     }
-    KDtree treeBoi();
-    treeBoi.prepareData(&xList,&yList,&zList);
+    KDtree treeBoi;
+    treeBoi.prepareData(xList,yList,zList);
     for (int i = 0; i < boids.size()-1; i++) {
-      //  std::cout<< treeBoi.xPoints[i]<<","<<treeBoi.yPoints[i]<<","<<treeBoi.zPoints[i];
+       std::cout<< treeBoi.xPoints[i]<<","<<treeBoi.yPoints[i]<<","<<treeBoi.zPoints[i];
     }
     printTestObj(&randVect);
     retarded2dPlot(randVect.x_cordinates,randVect.y_cordinates,'X');
@@ -100,7 +100,7 @@ void loop(){
 
 int main(){
     setup();
-    for( int i = 1; i < 1000; i++){
+    for( int i = 1; i < 100; i++){
         loop();
         usleep( 2* microsecond);
     }
