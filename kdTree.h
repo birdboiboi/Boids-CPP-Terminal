@@ -7,7 +7,12 @@ template <typename T> class KDtree{
     public:
         std::vector<Vect3d<T>> points;
         int pointLength;
-
+        KDtree(const int size){
+            this->pointLength = size;//sizeof(xPoints)/sizeof(xPoints[0]);
+            for (int i = 0; i < this->pointLength; i++){
+                this->points.push_back( Vect3d<T>(0,0,0));
+            }
+        }
         KDtree(T *xPoints,T *yPoints,T *zPoints,const int size){
             this->pointLength = size;//sizeof(xPoints)/sizeof(xPoints[0]);
             for (int i = 0; i < this->pointLength; i++){

@@ -6,7 +6,7 @@
 #include "boids.h"
 #include "kdTree.h"
 
-
+const int SIZE(10);
 unsigned int microsecond = 25000;
 
 struct testObj{
@@ -55,11 +55,12 @@ void boidToObject(int *coordinates,testObj *structRef, int idx){
 
 testObj randVect;
 std::vector<Boid> boids;
+KDtree<int> treeBoi(SIZE);
 
 void setup(){
     
     //test code
-    for(int i = 0; i < 10 ; i++){
+    for(int i = 0; i < SIZE ; i++){
         boids.push_back(Boid(static_cast<int>(rand()%10),
                         static_cast<int>(rand()%10),
                         static_cast<int>(rand()%10)));
@@ -87,10 +88,9 @@ void loop(){
         zList[i] = boids[i].Locate()[2]; 
 	    std::cout<<"point added "<< xList[i]<<","<<yList[i]<<","<<zList[i]<<"\n";
     }
-    KDtree<int> treeBoi = {};
-    //treeBoi.prepareData(xList,yList,zList);
+    treeBoi.updateData(xList,yList,zList);
     for (int i = 0; i < boids.size()-1; i++) {
-       //std::cout<< treeBoi.points[i].x<<","<<treeBoi.points[i].y<<","<<treeBoi.points[i].z<<"\n";
+       std::cout<< treeBoi.points[i].x<<","<<treeBoi.points[i].y<<","<<treeBoi.points[i].z<<"\n";
     }
     printTestObj(&randVect);
     retarded2dPlot(randVect.x_cordinates,randVect.y_cordinates,'X');
