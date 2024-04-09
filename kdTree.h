@@ -1,26 +1,40 @@
 #pragma once
-
-
-namespace simple{
-    template <typename T> class Vect3d{
-        public:
-            Vect3d(const &T x,const &T y, const &T z);
-            T magnitude();
-            bool operator<(const &Vect3d other);
-        private:
-            T x;
-            T y;
-            T z;
-    };
-}
+#include "vect3d.h"
+#include <algorithm>
+#include <vector>
 
 template <typename T> class KDtree{
     public:
-        KDtree(int listLength);
-        void prepareData(T* xPoints,T* yPoints,T* zPoints);
-        simple::Vect3d<T> *points;
+        std::vector<Vect3d<T>> points;
+        int pointLength;
 
+        KDtree(T *xPoints,T *yPoints,T *zPoints,const int size){
+            this->pointLength = size;//sizeof(xPoints)/sizeof(xPoints[0]);
+            for (int i = 0; i < this->pointLength; i++){
+                this->points.push_back( Vect3d<T>(xPoints[i],yPoints[i],zPoints[i]));
+            }
+            std::sort(this->points.begin(),this->points.end());
+        }
+
+        void updateData(T *xPoints,T *yPoints,T *zPoints){
+            for (int i = 0; i < this->pointLength; i++){
+                this->points.at(i) = Vect3d<T>(xPoints[i],yPoints[i],zPoints[i]);
+            }
+            std::sort(this->points.begin(),this->points.end());
+        }
     private:
         
-
 };
+
+
+
+
+
+
+
+
+
+
+
+
+ 
