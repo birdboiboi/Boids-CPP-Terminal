@@ -26,6 +26,7 @@ template <typename T> class Vect3d{
         T x;
         T y;
         T z;
+	T magnitude;
     private:
         
 };
