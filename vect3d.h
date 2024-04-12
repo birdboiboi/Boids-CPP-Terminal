@@ -2,10 +2,6 @@
 #pragma once
 #include <cmath>
 
-template <typename T>struct Node{
-	node* leftChild;
-	node* rightChild;	
-};
 
 template <typename T> class Vect3d{
     public:
@@ -20,13 +16,13 @@ template <typename T> class Vect3d{
         T magnitude(){
             return sqrt(pow(this->x,2)+pow(this->y,2)+pow(this->z,2));
         }
-        bool operator-(Vect3d &other){
+        Vect3d<T> operator-(Vect3d &other){
             return Vect3d<T>(this->x - other.x , this->y - other.y, this->z - other.z);
 	}
         bool operator!=(Vect3d &other){
             return (this->x != other.x && this->y != other.y && this->z != other.z);
         }
-        Vect3d<T> operator<(Vect3d &other){
+        bool  operator<(Vect3d &other){
 	    switch(this->axis){
 	    	case 1:
             		return(this->x < other.x);
@@ -43,8 +39,10 @@ template <typename T> class Vect3d{
     T x;
     T y;
     T z;
-    Node<T> node;
+    //Node<T> node;
+    
+    Vect3d<T>* leftChild;
+    Vect3d<T>* rightChild;
     private:
         
 };
-

@@ -19,8 +19,8 @@ int main(){
     int y1[] =  { 8 ,23 ,7};
     int z1[] =  { 8 ,4 ,23};
     treeBoi.updateData(x1,y1,z1);
-    for (int i = 0; i < 3; i++) {
-       std::cout<< treeBoi.points[i].x<<","<<treeBoi.points[i].y<<","<<treeBoi.points[i].z<<"\n";
-    }
+    //for (int i = 0; i < 3; i++) {
+    //   std::cout<< treeBoi.points[i].x<<","<<treeBoi.points[i].y<<","<<treeBoi.points[i].z<<"\n";
+    //}
     return 1;
 }
