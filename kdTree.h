@@ -2,12 +2,8 @@
 #include "vect3d.h"
 #include <algorithm>
 #include <vector>
-template <typename T>struct node{
-	T magnitude;
-	int idx;
-	node* leftChild;
-	node* rightChild;	
-};
+#include <cmath>
+
 
 template <typename T> class KDtree{
     public:
@@ -26,7 +22,8 @@ template <typename T> class KDtree{
             }
 	    
            // std::sort(this->points.begin(),this->points.end());
-            this->construct();
+            
+            this->construct(0,this->pointLength-1,1);
 	}
 
         void updateData(T *xPoints,T *yPoints,T *zPoints){
@@ -35,29 +32,44 @@ template <typename T> class KDtree{
             }
 	    
             //std::sort(this->points.begin(),this->points.end());
-	    this->construct();
+
+            this->construct(0,this->pointLength-1,1,);
         }
 	void construct(int begin,int end,int axisToSort){
 
 	    //TODO: switch structure to a property in vect3 so memory can be saved
 	    //ex: Vect3d<int> vect[median].leftChild = vect[median/2] 
 	    //start tree at length-1 = median
-	    int median = (end-begin)/2;
-	  
-	    node<T> parent;
-	    parent.idx = median;
-	    parent.magnitude = this->points.at(parent.idx);
-	//TODO: right now theres an infinte loop....sort this
-	    parent.leftChild = construct(points.at(begin),points.at(median),
-			    [](const Vect3d<T> lhs,const Vect3d<T>){
-			    lhs.axis = axisToSort;
-			    return lhs<rhs;
-			    });
-	   parent.rightChild = construct(points.at(median),points.at(end),
-                            [](const Vect3d<T> lhs,const Vect3d<T>){
-                            lhs.axis = axisToSort;
-                            return lhs<rhs;
-                            }); 
+         
+        int depth = trunc(log2((end-begin) +1));
+        if(depth > 1){
+            int median = (end-begin)/2;
+            
+            std::sort(this->points.at(begin),this->points.at(end),
+                    [](const Vect3d<T> lhs,const Vect3d<T>){
+                    lhs.axis = axisToSort;
+                    return lhs<rhs;
+                    });
+
+            int medianLow = (median - begin)/2
+            int medianHigh =(end-begin)/2
+
+            this->points.at(median)->node.leftChild = this->points.at(medianLow);
+            this->points.at(median)->node.rightChild = this->points.at(medianHigh);
+
+            if(axisToSort == 1){
+                axisToSort = 2;
+            }else{
+                axisToSort = 1;
+            }
+
+            this->construct(medianLow,median,axisToSort);
+            this->construct(median,medianHigh,axisToSort);
+
+        }else{
+            return;
+        }
+	    
 	    
 	}
     private:

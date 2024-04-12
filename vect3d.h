@@ -1,6 +1,12 @@
 
 #pragma once
 #include <cmath>
+
+template <typename T>struct Node{
+	node* leftChild;
+	node* rightChild;	
+};
+
 template <typename T> class Vect3d{
     public:
         Vect3d(T x,T y,T z){
@@ -23,19 +29,21 @@ template <typename T> class Vect3d{
         Vect3d<T> operator<(Vect3d &other){
 	    switch(this->axis){
 	    	case 1:
-            		return(this->x<other.x);
-		case 2:
-            		return(this->y<other.y);
-		case 3:
-			return(this->z<other.z);
-		default:
-			return(pow(this->x,2)+pow(this->y,2)+pow(this->z,2)<pow(other.x,2)+pow(other.y,2)+pow(other.z,2));
+            		return(this->x < other.x);
+            case 2:
+                        return(this->y<other.y);
+            case 3:
+                return(this->z<other.z);
+            default:
+                return(pow(this->x,2)+pow(this->y,2)+pow(this->z,2)<pow(other.x,2)+pow(other.y,2)+pow(other.z,2));
 	    }
 	}
+    
 	int axis = 0;
-        T x;
-        T y;
-        T z;
+    T x;
+    T y;
+    T z;
+    Node<T> node;
     private:
         
 };
